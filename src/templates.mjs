@@ -226,7 +226,14 @@ function themedLinks(entries, locale, site) {
     .filter((link) => link.href && link.label);
 }
 
-function renderNav(site, locale, current) {
+function localeUrlFor(url, fromLocale, toLocale) {
+  const value = String(url || "/");
+  if (value === "/" || value === `/${fromLocale}` || value === `/${fromLocale}/`) return `/${toLocale}/`;
+  if (value.startsWith(`/${fromLocale}/`)) return `/${toLocale}/${value.slice(fromLocale.length + 2)}`;
+  return `/${toLocale}/`;
+}
+
+function renderNav(site, locale, current, url = `/${locale}/`) {
   const fallbackNavLinks = [
     { key: "home", href: "/:locale/", label: t(locale, "home") },
     { key: "archive", href: "/:locale/archive/", label: t(locale, "archive") },
@@ -240,6 +247,15 @@ function renderNav(site, locale, current) {
   const navConfig = site.theme?.nav || {};
   const navLinks = themedLinks(navConfig.links || fallbackNavLinks, locale, site);
   const utilityLinks = themedLinks(navConfig.utilityLinks || fallbackUtilityLinks, locale, site);
+  const locales = siteLocales(site).filter((entryLocale) => ["zh-CN", "zh-TW"].includes(entryLocale));
+  const languageLinks = locales.length > 1
+    ? `<nav class="language-nav" aria-label="${escapeHtml(t(locale, "languageSwitch"))}">
+      ${locales.map((entryLocale) => {
+        const currentAttr = entryLocale === locale ? ' aria-current="page"' : "";
+        return `<a href="${withBase(localeUrlFor(url, locale, entryLocale))}" data-locale-choice="${entryLocale}"${currentAttr}>${escapeHtml(localeLabel(entryLocale))}</a>`;
+      }).join("")}
+    </nav>`
+    : "";
 
   return `<header class="site-header">
     <a class="brand" href="${withBase(`/${locale}/`)}" data-locale-choice="${locale}">
@@ -258,6 +274,7 @@ function renderNav(site, locale, current) {
         return `<a href="${link.href}"${currentAttr}>${renderIcon(link.icon)}<span>${escapeHtml(link.label)}</span></a>`;
       }).join("")}
     </nav>
+    ${languageLinks}
   </header>`;
 }
 
@@ -399,7 +416,7 @@ export function renderLayout({
 </head>
 <body${renderAttributes(bodyAttrs)}>
   <a class="skip-link" href="#main">${escapeHtml(t(locale, "skip"))}</a>
-  ${renderNav(site, locale, current)}
+  ${renderNav(site, locale, current, url)}
   ${main}
   ${renderFooter(site, locale)}
   ${renderScripts(bodyEndScripts(site, scripts))}

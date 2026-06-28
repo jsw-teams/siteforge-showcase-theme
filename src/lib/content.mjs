@@ -472,6 +472,28 @@ function localeFromPostFilename(file) {
   return match?.[1] ?? "";
 }
 
+function cloneMissingLocaleEntries(entries, site, urlFor) {
+  const locales = site?.locales ?? LOCALES;
+  const defaultLocale = site?.defaultLocale ?? DEFAULT_LOCALE;
+  const byKey = new Set(entries.map((entry) => `${entry.translationKey}:${entry.locale}`));
+  const clones = [];
+  for (const entry of entries.filter((item) => item.locale === defaultLocale)) {
+    for (const locale of locales) {
+      if (locale === defaultLocale) continue;
+      const key = `${entry.translationKey}:${locale}`;
+      if (byKey.has(key)) continue;
+      clones.push({
+        ...entry,
+        locale,
+        url: urlFor(entry, locale),
+        sourceLocale: defaultLocale
+      });
+      byKey.add(key);
+    }
+  }
+  return clones.length ? [...entries, ...clones] : entries;
+}
+
 export async function loadPosts(site = null) {
   const locales = site?.locales ?? LOCALES;
   const files = await fg("content/posts/*/index.*.md", { cwd: rootDir, onlyFiles: true });
@@ -560,7 +582,7 @@ export async function loadPages(site = null) {
       order: Number(parsed.data.order || 0)
     });
   }
-  return pages;
+  return cloneMissingLocaleEntries(pages, site, (entry, locale) => specialUrls[entry.slug]?.(locale) || `/${locale}/${entry.slug}/`);
 }
 
 export async function loadDocs(site = null) {
@@ -597,8 +619,9 @@ export async function loadDocs(site = null) {
       kind: "doc"
     });
   }
-  docs.sort((a, b) => a.locale.localeCompare(b.locale) || a.order - b.order || a.title.localeCompare(b.title));
-  return docs;
+  const localizedDocs = cloneMissingLocaleEntries(docs, site, (entry, locale) => entry.slug === "index" ? `/${locale}/docs/` : `/${locale}/docs/${entry.slug}/`);
+  localizedDocs.sort((a, b) => a.locale.localeCompare(b.locale) || a.order - b.order || a.title.localeCompare(b.title));
+  return localizedDocs;
 }
 
 function decoratePosts(posts) {

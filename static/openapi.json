@@ -23,7 +23,8 @@
             "schema": {
               "type": "string",
               "enum": [
-                "zh-CN"
+                "zh-CN",
+                "zh-TW"
               ]
             }
           }

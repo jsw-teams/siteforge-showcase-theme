@@ -14,6 +14,7 @@
   function setStatus(message, isEmpty) {
     if (!status) return;
     status.textContent = message;
+    status.hidden = !message;
     status.classList.toggle("empty", Boolean(isEmpty));
   }
 

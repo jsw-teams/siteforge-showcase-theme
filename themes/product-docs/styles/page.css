@@ -343,11 +343,8 @@
 .plain-article {
   max-width: 860px;
   margin: 0 auto;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: clamp(1.4rem, 4vw, 3rem);
-  background: rgba(255, 255, 255, 0.86);
-  box-shadow: 0 18px 54px rgba(17, 24, 39, 0.06);
+  padding: 0;
+  background: transparent;
 }
 
 .plain-header {
@@ -380,11 +377,8 @@
   display: grid;
   gap: 1rem;
   max-width: 900px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: clamp(1rem, 3vw, 1.35rem);
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
+  border-top: 1px solid var(--line);
+  padding-top: clamp(1rem, 3vw, 1.35rem);
 }
 
 .search-form {
