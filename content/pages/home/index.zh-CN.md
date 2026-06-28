@@ -30,6 +30,10 @@ sitemap: true
       <pre><code>git clone https://github.com/jsw-teams/siteforge.git</code></pre>
     </div>
     <div>
+      <span>进入目录</span>
+      <pre><code>cd siteforge</code></pre>
+    </div>
+    <div>
       <span>安装依赖</span>
       <pre><code>npm install</code></pre>
     </div>

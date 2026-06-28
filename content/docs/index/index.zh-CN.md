@@ -26,6 +26,7 @@ sitemap: true
   <p>只写博客或维护普通内容站时，不需要先理解主题开发。按这个路径走：</p>
   <ol>
     <li><strong>克隆项目。</strong><code>git clone https://github.com/jsw-teams/siteforge.git</code></li>
+    <li><strong>进入目录。</strong><code>cd siteforge</code></li>
     <li><strong>安装依赖。</strong><code>npm install</code></li>
     <li><strong>先做检查。</strong><code>npm run check</code> 用来确认当前输出、主题资源和发现入口是健康的。</li>
     <li><strong>生成静态文件。</strong><code>npm run generate</code> 类似 <code>hexo generate</code> / <code>hexo g</code>。</li>
@@ -33,6 +34,7 @@ sitemap: true
   </ol>
   <div class="docs-command-grid" aria-label="常用命令">
     <pre><code>git clone https://github.com/jsw-teams/siteforge.git</code></pre>
+    <pre><code>cd siteforge</code></pre>
     <pre><code>npm install</code></pre>
     <pre><code>npm run check</code></pre>
     <pre><code>npm run generate</code></pre>

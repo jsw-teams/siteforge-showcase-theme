@@ -45,68 +45,164 @@ slot 是完整组件，不需要在后面补“这里会显示结果”这类说
 
 ## 开发一个动态互动 slot
 
-slot 适合承载需要构建器数据和浏览器交互的组件。下面用 `docs-live-search` 举一个完整例子：它在 Markdown 页面里只出现一行注释，构建器会把它替换成一个文档搜索组件，主题脚本再接管输入、加载索引、结果渲染和空状态。
+slot 适合承载需要构建器数据和浏览器交互的组件。下面用 `featured-docs` 举一个完整应用例子：在任意 `content/pages` 或 `content/docs` 页面里写一行注释，构建器读取 `content/docs/*` 的文档数据，生成推荐文档列表，主题脚本再处理折叠、键盘导航或埋点等交互。
 
 先约定 slot 名称。Markdown 里使用短横线命名：
 
 ```html
-<!-- siteforge:docs-live-search -->
+<!-- siteforge:featured-docs -->
 ```
 
 代码里对应驼峰 key：
 
 ```js
-docsLiveSearch
+featuredDocs
 ```
 
-然后在页面渲染函数里生成组件 HTML。示例位置是 `src/lib/theme-html.mjs`：
+### 1. 让内容模型带上组件需要的数据
+
+`src/lib/content.mjs` 已经有三条关键链路：
 
 ```js
-const main = replaceSlots(pageContent.html, {
-  docsLiveSearch: `<section
-    class="docs-live-search"
-    data-docs-live-search
-    data-search-locale="${escapeHtml(locale)}"
-    data-search-empty="${escapeHtml(t(locale, "searchEmpty"))}"
-    data-search-no-results="${escapeHtml(t(locale, "searchNoResults"))}">
-    <form class="docs-live-search-form" data-search-form role="search">
-      <label class="visually-hidden" for="search-input">${escapeHtml(t(locale, "search"))}</label>
-      <input id="search-input" class="search-input" data-search-input type="search">
-    </form>
-    <p class="search-status empty" data-search-status aria-live="polite"></p>
-    <div class="search-results" data-search-results></div>
-  </section>`
+export async function loadDocs(site = null) {
+  const files = await fg("content/docs/*/index.*.md", { cwd: rootDir, onlyFiles: true });
+  // 解析 title、description、section、order、html、url、markdownBody 等字段
+}
+
+export async function loadBlogData() {
+  const site = await readSiteConfig();
+  const posts = await loadPosts(site);
+  const pages = await loadPages(site);
+  const docs = await loadDocs(site);
+  return { site, posts, pages, docs };
+}
+
+export async function buildHtmlPages() {
+  const { site, posts, pages, docs } = await loadBlogData();
+  // docsByLocale 会传给普通页面和文档页面模板
+}
+```
+
+如果 `featured-docs` 只需要推荐文档标题、摘要、分组和链接，就不必新增内容目录；直接复用 `loadDocs()` 返回的 `docs`。如果组件需要额外字段，例如 `featured: true`，就在 `loadDocs()` 的对象里补一个布尔值：
+
+```js
+docs.push({
+  slug,
+  locale,
+  title: parsed.data.title || slug,
+  description: plainSummary(parsed.content, parsed.data.description),
+  section: parsed.data.section ? String(parsed.data.section) : "指南",
+  order: Number(parsed.data.order || 0),
+  featured: parsed.data.featured === true,
+  html: renderMarkdown(parsed.content, baseDir, contentKey, { html: true }),
+  url: slug === "index" ? `/${locale}/docs/` : `/${locale}/docs/${slug}/`,
+  kind: "doc"
 });
 ```
 
-这个 HTML 是组件外壳，不是给内容作者手写的页面装饰。它包含脚本需要读取的 `data-docs-live-search`、`data-search-input`、`data-search-status` 和 `data-search-results`，所以后续交互可以稳定绑定。
+搜索类组件还要注意 `buildSearchIndex()`。当前主题只把 docs 放进搜索索引：
 
-再把交互脚本作为主题功能挂载，例如 `theme.yml`：
+```js
+export function buildSearchIndex(posts, locale, pages = [], docs = []) {
+  return docs.filter((doc) => doc.locale === locale).map((doc) => ({
+    title: doc.title,
+    description: doc.description,
+    url: doc.url,
+    category: doc.section || "Docs",
+    text: stripMarkdown(doc.markdownBody || "")
+  }));
+}
+```
+
+所以如果 slot 要读取搜索索引，它会天然只命中文档内容；如果 slot 要读普通页面，就需要同步调整这里的索引来源。
+
+### 2. 把数据传给主题模板
+
+`buildHtmlPages()` 已经把当前语言的文档列表传给普通页面和文档页面：
+
+```js
+const docsByLocale = new Map(locales.map((locale) => [
+  locale,
+  docs
+    .filter((doc) => doc.locale === locale)
+    .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title))
+]));
+
+add(page.url, templates.renderAboutPage({
+  site,
+  locale: page.locale,
+  page,
+  translations,
+  docs: docsByLocale.get(page.locale) || []
+}));
+```
+
+这一步让 `content/pages/about`、`content/pages/search` 和 `content/docs/*` 都能拿到同一份 docs 数据。slot 不需要在 Markdown 里重新写文档列表。
+
+### 3. 在主题渲染里注册 slot
+
+然后在页面渲染函数里生成组件 HTML。示例位置是 `src/lib/theme-html.mjs` 的页面渲染逻辑：
+
+```js
+function renderFeaturedDocs(docs = []) {
+  const items = docs
+    .filter((doc) => doc.featured || doc.order <= 3)
+    .slice(0, 4)
+    .map((doc) => `<a class="featured-doc" href="${escapeHtml(doc.url)}">
+      <span>${escapeHtml(doc.section || "Docs")}</span>
+      <strong>${escapeHtml(doc.title)}</strong>
+      <small>${escapeHtml(doc.description)}</small>
+    </a>`)
+    .join("");
+
+  return `<section class="featured-docs" data-featured-docs>
+    <header>
+      <p class="eyebrow">Recommended</p>
+      <h2>推荐阅读</h2>
+    </header>
+    <div class="featured-docs-list">${items}</div>
+  </section>`;
+}
+
+const main = replaceSlots(pageContent.html, {
+  featuredDocs: renderFeaturedDocs(docs)
+});
+```
+
+这里的 `featuredDocs` 就是 `<!-- siteforge:featured-docs -->` 的目标。HTML 是组件外壳，不是给内容作者手写的装饰；`data-featured-docs` 是主题脚本的稳定钩子。
+
+### 4. 在主题配置里挂脚本和样式
+
+如果它只是静态推荐列表，只加样式即可；如果要做折叠、键盘导航、曝光统计或轮播，再把脚本作为主题功能挂载：
 
 ```yaml
 features:
-  docsLiveSearch: true
+  featuredDocs: true
 featureScripts:
-  docsLiveSearch: scripts/docs-live-search.js
+  featuredDocs: scripts/featured-docs.js
+featureStyles:
+  featuredDocs: styles/featured-docs.css
 featureCategories:
-  docsLiveSearch: necessary
+  featuredDocs: necessary
 ```
 
-`scripts/docs-live-search.js` 只需要找 `[data-docs-live-search]`，读取输入框、状态节点和结果节点，再请求文档搜索索引并渲染结果。组件内部状态由脚本维护，不需要页面作者补“这里显示搜索结果”。
+`scripts/featured-docs.js` 只需要找 `[data-featured-docs]`，再接管组件内部交互。Consent 启用时，`featureCategories` 会决定它属于必要功能、偏好功能、统计功能还是营销功能。
 
-最后在 Markdown/HTML 页面里使用 slot。例如 `content/pages/search/index.zh-CN.md`：
+### 5. 在 Markdown 页面里使用 slot
+
+最后在 Markdown/HTML 页面里使用 slot。例如 `content/pages/home/index.zh-CN.md` 或某篇文档：
 
 ```html
-<section class="search-hero" aria-labelledby="search-title">
-  <p class="eyebrow">Docs search</p>
-  <h1 id="search-title">只搜索文档</h1>
-  <p class="lead">搜索索引只包含文档内容。</p>
+<section class="intro" aria-labelledby="intro-title">
+  <p class="eyebrow">Guide</p>
+  <h1 id="intro-title">先读这几篇</h1>
+  <p>页面作者只决定推荐文档出现在哪里。</p>
 </section>
 
-<!-- siteforge:docs-live-search -->
+<!-- siteforge:featured-docs -->
 ```
 
-构建时，`replaceSlots()` 会把 `<!-- siteforge:docs-live-search -->` 转成 `slots.docsLiveSearch`。这就是 Siteforge slot 的重点：内容作者控制组件位置，主题和构建器控制组件结构、数据和交互。
+构建时，`replaceSlots()` 会把 `<!-- siteforge:featured-docs -->` 转成 `slots.featuredDocs`。这就是 Siteforge slot 的重点：内容作者控制组件位置，`content.mjs` 提供结构化内容，主题模板生成组件，主题脚本接管交互。
 
 ## 什么时候新增 slot
 

@@ -25,7 +25,7 @@ featureCategories:
   webMcp: necessary
 consent:
   enabled: true
-  storageKey: siteforge-product-docs-consent
+  storageKey: siteforge-showcase-theme-consent
   revision: 1
   categories:
     necessary:
@@ -102,8 +102,8 @@ footer:
   enabled: true
   copyright:
     enabled: true
-    text: "Siteforge by jsgripe-teams"
-    href: https://github.com/jsw-teams/siteforge
+    text: "自豪地基于 Siteforge 二次开发"
+    href: https://github.com/jsw-teams/siteforge-showcase-theme
   links: []
 plugins:
   comments:

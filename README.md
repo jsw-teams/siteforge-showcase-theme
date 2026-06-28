@@ -1,10 +1,12 @@
-# Siteforge product-docs theme
+# Siteforge Showcase Theme
 
-Siteforge product showcase and documentation theme example.
+基于 Siteforge 二次开发的产品展示与产品文档主题示例。
 
-## Use directly
+## 直接使用
 
 ```bash
+git clone https://github.com/jsw-teams/siteforge-showcase-theme.git
+cd siteforge-showcase-theme
 npm install
 npm run check
 npm run generate

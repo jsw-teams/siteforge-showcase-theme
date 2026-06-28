@@ -36,6 +36,8 @@ llms:
   resources:
     - label: GitHub repository
       url: https://github.com/jsw-teams/siteforge
+    - label: Showcase theme source
+      url: https://github.com/jsw-teams/siteforge-showcase-theme
     - label: Sitemap
       url: /sitemap.xml
     - label: RSS feed
@@ -70,6 +72,10 @@ discovery:
       url: https://github.com/jsw-teams/siteforge
       type: text/html
       title: GitHub repository
+    - rel: source
+      url: https://github.com/jsw-teams/siteforge-showcase-theme
+      type: text/html
+      title: Showcase theme source
     - rel: copyright
       url: /NOTICE
       type: text/plain
