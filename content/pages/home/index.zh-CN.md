@@ -10,7 +10,7 @@ sitemap: true
   <div class="hero-copy">
     <p class="eyebrow">Static site builder</p>
     <h1 id="home-title">为内容站和 Agent 二次开发准备的静态构建器</h1>
-    <p class="lead">Siteforge 把内容、主题和站务输出放进清晰的目录边界：内容团队维护 Markdown，开发者扩展主题，构建器负责 SEO、搜索、sitemap、feed、llms 与 Agent discovery。</p>
+    <p class="lead">Siteforge 把内容、主题和站务输出放进清晰的目录边界：内容团队维护 Markdown，开发者扩展主题，构建器负责 SEO、搜索、sitemap、feed、llms 与 Agent discovery</p>
     <div class="hero-actions">
       <a class="button-link" href="/zh-CN/docs/">阅读指南</a>
       <a class="button-link button-link-secondary" href="https://github.com/jsw-teams/siteforge">查看 GitHub</a>
@@ -58,7 +58,7 @@ sitemap: true
     <p class="eyebrow">Production checks</p>
     <h2 id="proof-title">默认主题已经过实站检查</h2>
   </div>
-  <p class="proof-copy">README 给出了可复核的公开报告：<a href="https://pagespeed.web.dev/analysis/https-blog-js-gripe-en/ifrxjzn6xy?hl=zh-cn">PageSpeed 原始报告</a>显示桌面端四项 100，移动端性能 98；Cloudflare Agent 检查通过，说明默认输出已经覆盖轻量渲染、可访问性、搜索引擎基础信息和 Agent 发现入口。</p>
+  <p class="proof-copy">README 给出了可复核的公开报告：<a href="https://pagespeed.web.dev/analysis/https-blog-js-gripe-en/ifrxjzn6xy?hl=zh-cn">PageSpeed 原始报告</a>显示桌面端四项 100，移动端性能 98；Cloudflare Agent 检查通过，说明默认输出已经覆盖轻量渲染、可访问性、搜索引擎基础信息和 Agent 发现入口</p>
   <div class="proof-grid">
     <article><strong>100</strong><span>桌面端四项全满</span></article>
     <article><strong>98</strong><span>移动端性能</span></article>

@@ -7,7 +7,7 @@
   "transports": [
     {
       "type": "webmcp",
-      "endpoint": "https://siteforge.jsw.team/"
+      "endpoint": "https://showcase.js.gripe/"
     }
   ],
   "capabilities": {
@@ -22,19 +22,19 @@
       }
     ],
     "resources": [
-      "https://siteforge.jsw.team/.well-known/api-catalog",
-      "https://siteforge.jsw.team/openapi.json",
-      "https://siteforge.jsw.team/AGENTS.md",
-      "https://siteforge.jsw.team/llms.txt",
-      "https://siteforge.jsw.team/llms-full.txt",
-      "https://siteforge.jsw.team/.well-known/mcp/server-card.json",
+      "https://showcase.js.gripe/.well-known/api-catalog",
+      "https://showcase.js.gripe/openapi.json",
+      "https://showcase.js.gripe/AGENTS.md",
+      "https://showcase.js.gripe/llms.txt",
+      "https://showcase.js.gripe/llms-full.txt",
+      "https://showcase.js.gripe/.well-known/mcp/server-card.json",
       "https://github.com/jsw-teams/siteforge",
       "https://github.com/jsw-teams/siteforge-showcase-theme",
-      "https://siteforge.jsw.team/NOTICE"
+      "https://showcase.js.gripe/NOTICE"
     ]
   },
   "auth": {
     "type": "none",
-    "metadata": "https://siteforge.jsw.team/auth.md"
+    "metadata": "https://showcase.js.gripe/auth.md"
   }
 }

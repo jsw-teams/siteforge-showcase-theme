@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://siteforge.jsw.team"
+      "url": "https://showcase.js.gripe"
     }
   ],
   "paths": {
@@ -24,7 +24,8 @@
               "type": "string",
               "enum": [
                 "zh-CN",
-                "zh-TW"
+                "zh-TW",
+                "en"
               ]
             }
           }

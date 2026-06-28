@@ -276,6 +276,7 @@ export function loadHtmlThemeTemplates(site, themeDir, templateDir) {
         languages: languageBlock,
         toc: isDocPage ? renderPageToc(content) : "",
         docNav: isDocPage ? renderDocNav(docs, locale, page.url, content, page.title) : "",
+        docsHome: `/${locale}/docs/`,
         content
       });
       const alternates = translations

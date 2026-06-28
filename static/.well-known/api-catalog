@@ -1,41 +1,41 @@
 {
   "linkset": [
     {
-      "anchor": "https://siteforge.jsw.team/",
+      "anchor": "https://showcase.js.gripe/",
       "service-desc": [
         {
-          "href": "https://siteforge.jsw.team/openapi.json",
+          "href": "https://showcase.js.gripe/openapi.json",
           "type": "application/vnd.oai.openapi+json;version=3.1",
           "title": "Siteforge / jsw-teams/siteforge public API description"
         }
       ],
       "service-doc": [
         {
-          "href": "https://siteforge.jsw.team/AGENTS.md",
+          "href": "https://showcase.js.gripe/AGENTS.md",
           "type": "text/markdown",
           "title": "Agent guide"
         },
         {
-          "href": "https://siteforge.jsw.team/llms.txt",
+          "href": "https://showcase.js.gripe/llms.txt",
           "type": "text/plain",
           "title": "Public content guide for language models"
         },
         {
-          "href": "https://siteforge.jsw.team/auth.md",
+          "href": "https://showcase.js.gripe/auth.md",
           "type": "text/markdown",
           "title": "Agent authentication and registration policy"
         }
       ],
       "status": [
         {
-          "href": "https://siteforge.jsw.team/.well-known/status.json",
+          "href": "https://showcase.js.gripe/.well-known/status.json",
           "type": "application/json",
           "title": "Public site status"
         }
       ],
       "describedby": [
         {
-          "href": "https://siteforge.jsw.team/llms-full.txt",
+          "href": "https://showcase.js.gripe/llms-full.txt",
           "type": "text/plain",
           "title": "Full LLM context"
         }

@@ -1,17 +1,21 @@
-siteUrl: https://siteforge.jsw.team
+siteUrl: https://showcase.js.gripe
 defaultLocale: zh-CN
 activeLocales:
   - zh-CN
   - zh-TW
+  - en
 siteName:
   zh-CN: Siteforge
   zh-TW: Siteforge
+  en: Siteforge
 description:
   zh-CN: 一个偏 Hexo 思路的静态网站构建器，面向内容站点、产品介绍页、产品文档和 Agent 友好的站务输出。
   zh-TW: 一個偏 Hexo 思路的靜態網站構建器，面向內容站點、產品介紹頁、產品文件和 Agent 友好的站務輸出。
+  en: A Hexo-inspired static site builder for content sites, product pages, documentation, and agent-friendly discovery.
 author:
   zh-CN: jsw-teams
   zh-TW: jsw-teams
+  en: jsw-teams
 theme:
   name: product-docs
 

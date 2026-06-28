@@ -1,6 +1,6 @@
 ---
-title: "文档搜索"
-description: "只检索 Siteforge 产品文档内容"
+title: "Docs search"
+description: "Search only Siteforge product documentation content"
 updated: "2026-06-28"
 translationKey: "search"
 sitemap: false
@@ -9,7 +9,7 @@ sitemap: false
 <main id="main" class="page-main search-page">
   <section class="search-hero" aria-labelledby="search-title">
     <p class="eyebrow">Docs search</p>
-    <h1 id="search-title">仅支持搜索文档</h1>
+    <h1 id="search-title">Search docs only</h1>
   </section>
 
   <!-- siteforge:search-panel -->

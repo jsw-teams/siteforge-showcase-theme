@@ -247,7 +247,7 @@ function renderNav(site, locale, current, url = `/${locale}/`) {
   const navConfig = site.theme?.nav || {};
   const navLinks = themedLinks(navConfig.links || fallbackNavLinks, locale, site);
   const utilityLinks = themedLinks(navConfig.utilityLinks || fallbackUtilityLinks, locale, site);
-  const locales = siteLocales(site).filter((entryLocale) => ["zh-CN", "zh-TW"].includes(entryLocale));
+  const locales = siteLocales(site);
   const languageLinks = locales.length > 1
     ? `<nav class="language-nav" aria-label="${escapeHtml(t(locale, "languageSwitch"))}">
       ${locales.map((entryLocale) => {

@@ -22,7 +22,7 @@ const staticDir = path.join(rootDir, "static");
 const staticAssetsDir = path.join(staticDir, "assets");
 const moreMarker = /<!--\s*more\s*-->/i;
 const today = "2026-04-27";
-const specialPageSlugs = new Set(["home", "archive", "categories", "tags", "search"]);
+const specialPageSlugs = new Set(["home", "archive", "categories", "tags", "search", "docs"]);
 
 export { DEFAULT_LOCALE, LOCALES, absoluteUrl };
 
