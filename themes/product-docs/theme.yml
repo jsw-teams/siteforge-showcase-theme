@@ -78,18 +78,21 @@ nav:
       icon: home
       label:
         zh-CN: 首页
+        zh-TW: 首頁
         en: Home
     - key: docs
       href: /:locale/docs/
       icon: book-open
       label:
         zh-CN: 文档
+        zh-TW: 文件
         en: Docs
     - key: about
       href: /:locale/about/
       icon: info
       label:
         zh-CN: 关于
+        zh-TW: 關於
         en: About
   utilityLinks:
     - key: search
@@ -97,12 +100,16 @@ nav:
       icon: search
       label:
         zh-CN: 搜索
+        zh-TW: 搜尋
         en: Search
 footer:
   enabled: true
   copyright:
     enabled: true
-    text: "自豪地基于 Siteforge 二次开发"
+    text:
+      zh-CN: 自豪地基于 Siteforge 二次开发
+      zh-TW: 自豪地基於 Siteforge 二次開發
+      en: Proudly built on Siteforge
     href: https://github.com/jsw-teams/siteforge-showcase-theme
   links: []
 plugins:
