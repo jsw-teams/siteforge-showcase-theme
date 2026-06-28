@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "0.1",
+  "serverInfo": {
+    "name": "Siteforge / jsw-teams/siteforge",
+    "version": "1.0.0"
+  },
+  "transports": [
+    {
+      "type": "webmcp",
+      "endpoint": "https://siteforge.jsw.team/"
+    }
+  ],
+  "capabilities": {
+    "tools": [
+      {
+        "name": "search_public_docs",
+        "description": "Search public documentation by keyword."
+      },
+      {
+        "name": "list_discovery_resources",
+        "description": "List machine-readable discovery resources published by the site."
+      }
+    ],
+    "resources": [
+      "https://siteforge.jsw.team/.well-known/api-catalog",
+      "https://siteforge.jsw.team/openapi.json",
+      "https://siteforge.jsw.team/AGENTS.md",
+      "https://siteforge.jsw.team/llms.txt",
+      "https://siteforge.jsw.team/llms-full.txt",
+      "https://siteforge.jsw.team/.well-known/mcp/server-card.json",
+      "https://github.com/jsw-teams/siteforge",
+      "https://siteforge.jsw.team/NOTICE"
+    ]
+  },
+  "auth": {
+    "type": "none",
+    "metadata": "https://siteforge.jsw.team/auth.md"
+  }
+}

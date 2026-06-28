@@ -1,0 +1,45 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://siteforge.jsw.team/",
+      "service-desc": [
+        {
+          "href": "https://siteforge.jsw.team/openapi.json",
+          "type": "application/vnd.oai.openapi+json;version=3.1",
+          "title": "Siteforge / jsw-teams/siteforge public API description"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://siteforge.jsw.team/AGENTS.md",
+          "type": "text/markdown",
+          "title": "Agent guide"
+        },
+        {
+          "href": "https://siteforge.jsw.team/llms.txt",
+          "type": "text/plain",
+          "title": "Public content guide for language models"
+        },
+        {
+          "href": "https://siteforge.jsw.team/auth.md",
+          "type": "text/markdown",
+          "title": "Agent authentication and registration policy"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://siteforge.jsw.team/.well-known/status.json",
+          "type": "application/json",
+          "title": "Public site status"
+        }
+      ],
+      "describedby": [
+        {
+          "href": "https://siteforge.jsw.team/llms-full.txt",
+          "type": "text/plain",
+          "title": "Full LLM context"
+        }
+      ]
+    }
+  ]
+}

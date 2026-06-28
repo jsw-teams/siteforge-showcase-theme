@@ -1,0 +1,76 @@
+siteUrl: https://siteforge.jsw.team
+defaultLocale: zh-CN
+activeLocales:
+  - zh-CN
+siteName:
+  zh-CN: Siteforge
+description:
+  zh-CN: 一个偏 Hexo 思路的静态网站构建器，面向内容站点、产品介绍页、产品文档和 Agent 友好的站务输出。
+author:
+  zh-CN: jsw-teams
+theme:
+  name: product-docs
+
+robots:
+  header:
+    - Siteforge product documentation site.
+    - Public documentation, sitemap, feeds, llms files, and agent discovery resources are intended to be readable.
+  contentSignal: search=yes, ai-input=yes
+  rules:
+    - userAgent: "*"
+      allow:
+        - /
+      disallow:
+        - /node_modules/
+        - /src/
+        - /themes/
+        - /content/
+        - /.git/
+  sitemap: /sitemap.xml
+llms:
+  title: Siteforge / jsw-teams/siteforge
+  description: Siteforge 是一个偏 Hexo 思路的静态网站构建器，用 Markdown、YAML 和主题文件组织内容，并生成 SEO、sitemap、feed、本地搜索和 Agent discovery 资源。
+  intro:
+    - Siteforge exposes public, read-only pages, documentation, feeds, sitemap metadata, and agent discovery resources for AI assistants.
+    - Prefer documentation URLs for product and implementation context. Use canonical HTML URLs when citing pages for users.
+  resources:
+    - label: GitHub repository
+      url: https://github.com/jsw-teams/siteforge
+    - label: Sitemap
+      url: /sitemap.xml
+    - label: RSS feed
+      url: /feed.xml
+    - label: Full LLM context
+      url: /llms-full.txt
+    - label: Agent guide
+      url: /AGENTS.md
+    - label: Attribution notice
+      url: /NOTICE
+    - label: API catalog
+      url: /.well-known/api-catalog
+    - label: OpenAPI description
+      url: /openapi.json
+    - label: WebMCP server card
+      url: /.well-known/mcp/server-card.json
+  sections:
+    docs: Product Documentation
+    pages: Public Pages
+    posts: Latest Markdown Mirrors
+feed:
+  title: Siteforge Docs
+discovery:
+  version: 1.0.0
+  openapiTitle: Siteforge Public Documentation API
+  openapiDescription: Public, read-only resources for discovering and searching Siteforge documentation.
+  auth:
+    type: none
+    metadata: /auth.md
+  resources:
+    - rel: repository
+      url: https://github.com/jsw-teams/siteforge
+      type: text/html
+      title: GitHub repository
+    - rel: copyright
+      url: /NOTICE
+      type: text/plain
+      title: Siteforge attribution notice

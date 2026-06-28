@@ -1,0 +1,36 @@
+{
+  "name": "myprotect-product-docs",
+  "version": "1.0.0",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "packageManager": "pnpm@10.18.0",
+  "scripts": {
+    "assets": "node src/assets.mjs",
+    "prebuild": "node src/prebuild.mjs",
+    "pregenerate": "node src/prebuild.mjs",
+    "build": "astro build",
+    "generate": "astro build",
+    "serve": "node scripts/serve-public.mjs",
+    "server": "node scripts/serve-public.mjs",
+    "check": "node scripts/check-build.mjs"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^6.2.1",
+    "fast-glob": "^3.3.3",
+    "feed": "^4.2.2",
+    "gray-matter": "^4.0.3",
+    "html-minifier-terser": "^7.2.0",
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0",
+    "sharp": "^0.34.1"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
